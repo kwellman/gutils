@@ -1,6 +1,6 @@
 import functools
 import gevent
-from gevent.coros import Semaphore
+from gevent.coros import Semaphore, BoundedSemaphore
 
 class RateLimit(object):
     semaphore_class = Semaphore
@@ -31,7 +31,7 @@ class RateLimit(object):
             semaphore.acquire()
 
     def rawlink(self, func, *args, **kwargs):
-        self.links.append(functools.partial(func, *args, **kwargs)
+        self.links.append(functools.partial(func, *args, **kwargs))
 
     def timeout(self, semaphore):
         semaphore.release()
