@@ -5,12 +5,12 @@ class Retry(object):
         assert isinstance(tries, int), 'tries must be an integer'
         assert tries > 0, 'tries must larger than 0'
 
-        self.tries = 3
+        self.tries = tries
         self.exceptions = exceptions
 
     def __call__(self, func):
         def _retry(*args, **kwargs):
-            for i in range(self.tries):
+            for i in xrange(self.tries):
                 try:
                     return func(*args, **kwargs)
                 except Exception, e:
